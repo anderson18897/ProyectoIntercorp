@@ -1,0 +1,136 @@
+---
+openapi: 3.0.1
+info:
+  title: Customer Microservice
+  description: |
+    Microservice dedicated to registering customers, searching by dni or email and consulting indicators
+  contact:
+    email: anderson.18897@gmail.com
+  version: "1.0"
+servers:
+- url: http://localhost:8080/intercorp/customer
+  description: SwaggerHub API Auto Mocking
+tags:
+- name: customer
+  description: Microservice dedicated to registering customers, searching by dni or email and consulting indicators
+paths:
+  /create:
+    post:
+      tags:
+      - customer
+      description: Register customer.
+      requestBody:
+        description: Register customer.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+        required: true
+      responses:
+        "201":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer_OK'
+        "400":
+          description: Bad request
+        "500":
+          description: Internal server error.
+  /indicator:
+    get:
+      tags:
+      - customer
+      description: List customer indicators.
+      responses:
+        "200":
+          description: List customer indicators.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Indicator'
+        "204":
+          description: No Content
+        "500":
+          description: Internal server error.
+  /findby:
+    get:
+      tags:
+      - customer
+      description: Search customers by dni or email.
+      responses:
+        "200":
+          description: Search customers by dni or email.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer_OK'
+        "204":
+          description: No Content
+        "500":
+          description: Internal server error.        
+components:
+  schemas:
+    Customer_OK:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Id of customer
+          example: '1'
+        name:
+          type: string
+          description: Name of customer
+          example: 'lorena'
+        lastname:
+          type: string
+          description: Lastname of customer
+          example: 'perez'
+        email:
+          type: string
+          description: Email of customer
+          example: 'lorena@gmail.com'
+        dni:
+          type: string
+          description: Dni of customer
+          example: '78451250'
+        date_birth:
+          type: string
+          description: Date birth of customer
+          example: '1999-07-18'
+    Customer:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of customer
+          example: 'lorena'
+        lastname:
+          type: string
+          description: Lastname of customer
+          example: 'perez'
+        email:
+          type: string
+          description: Email of customer
+          example: 'lorena@gmail.com'
+        dni:
+          type: string
+          description: Dni of customer
+          example: '78451250'
+        date_birth:
+          type: string
+          description: Date birth of customer
+          example: '1999-07-18'
+    Indicator:
+      type: array
+      items:
+        type: object
+        properties:
+          cantidad:
+            type: string
+            description: Amount of customer
+            example: 'lorena'
+          fecha_nacimiento:
+            type: string
+            description: Date birth of customer
+            example: 'perez'
